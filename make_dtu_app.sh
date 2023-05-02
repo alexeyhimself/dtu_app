@@ -28,10 +28,10 @@ done
 cp $NEW_REMOTE_FILE_NAME $NEW_LOCAL_FILE_NAME
 
 # replace all ="src/ with ="https://dotheyuse.com/src/
-sed -i '' 's/href="src/href="https:\/\/dotheyuse.com\/src/g' $NEW_REMOTE_FILE_NAME
-sed -i '' 's/src="src/src="https:\/\/dotheyuse.com\/src/g' $NEW_REMOTE_FILE_NAME
+sed -i '' 's/href="src/href="https:\/\/dotheyuse.com\/src\/dtu_app\/src/g' $NEW_REMOTE_FILE_NAME
+sed -i '' 's/src="src/src="https:\/\/dotheyuse.com\/src\/dtu_app\/src/g' $NEW_REMOTE_FILE_NAME
 
-# replace all ="src/ with ="https://dotheyuse.com/src/
+# replace all ="src/ with ="../../../src/
 sed -i '' 's/href="src/href="\.\.\/\.\.\/\.\.\/src/g' $NEW_LOCAL_FILE_NAME
 sed -i '' 's/src="src/src="\.\.\/\.\.\/\.\.\/src/g' $NEW_LOCAL_FILE_NAME
 

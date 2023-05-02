@@ -67,11 +67,11 @@
 
         <div class="col-lg-2">
           <label for="topic" class="form-label no-margin-bottom custom-label">UID(s) only:</label>
-          <textarea class="form-control" data-dtu="UID(s)" id="txt:uids"></textarea>
+          <textarea class="form-control" data-dtu="UID(s) only" id="txt:uids"></textarea>
         </div>
         <div class="col-lg-2">
           <label for="topic" class="form-label no-margin-bottom custom-label">UID(s) to exclude:</label>
-          <textarea class="form-control" data-dtu="UID(s)" id="txt:uids_not"></textarea>
+          <textarea class="form-control" data-dtu="UID(s) to exclude" id="txt:uids_not"></textarea>
         </div>
 			</div>
 
@@ -125,7 +125,7 @@
                 <div id="interactions_donut" class="donut"></div>
 
                 <a id="toggle_uids_interactions_table__in" class="toggle-datatable hidden" onclick="ANALYTICS_PORTAL_SDK_toggle_table_display('uids_interactions_table__in');" data-dtu>Expand table</a> <span id="number_of_records_uids_interactions_table__in" class="datatable-records"></span>
-                <i class="bi bi-info-square-fill info" title="In a table below are displayed total numbers of user(s) interactions for any of web-element(s) of selected web-page(s) for selected time range"></i>
+                <i class="bi bi-info-square-fill info" title="In a table below are displayed total numbers of user(s) interactions for any of web-element(s) of selected web-page(s) for selected time range. Different types of UIDs are given as an example: emails, IDs, salted MD5 hashes."></i>
                 <table id="uids_interactions_table__in" class="table table-sm" style="margin-bottom: 20px!important;">
                   <thead>
                     <tr>
@@ -227,6 +227,7 @@
       <p>Please wait a few seconds.<br>We are getting ready your demo account...</p>
     </div>
 
+    <script src="../../../src/web/account/js/md5/md5.min.js"></script> <!-- https://github.com/placemarker/jQuery-MD5 -->
     <script src="../../../src/web/account/js/d3/d3.v7.min.js"></script>
     <script src="../../../src/web/account/js/d3/d3-sankey.min.js"></script>
     <script src="../../../src/web/account/jquery/jquery-3.6.4.min.js"></script>
