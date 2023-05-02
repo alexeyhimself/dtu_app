@@ -1,2 +1,2 @@
-# dtu_mvp
-Do They Use static HTML MVP for GitHub Pages
+# dtu_app
+DoTheyUse static HTML MVP for GitHub Pages
