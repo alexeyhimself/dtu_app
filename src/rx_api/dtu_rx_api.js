@@ -28,7 +28,8 @@ console.warn("make element path to lower case both for rx and tx apis")
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 async function DTU_RX_API_submint_report(report) {
   // Default options are marked with *
-  const response = await fetch('localhost/rx', {
+  delete report.ugid // temporary disabled
+  const response = await fetch('/rx', {
     method: "POST",
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
