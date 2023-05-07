@@ -3,6 +3,9 @@
 	<head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J69ENZY4TQ"></script>
     <script>
+      if (["", "localhost"].includes(window.location.hostname)) // disable GA: https://stackoverflow.com/questions/40297763/how-to-disable-google-analytics-on-localhost
+        window['ga-disable-G-J69ENZY4TQ'] = true; // enter your tracking ID
+
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
