@@ -29,7 +29,7 @@ console.warn("make element path to lower case both for rx and tx apis")
 async function DTU_RX_API_submint_report(report) {
   // Default options are marked with *
   delete report.ugid // temporary disabled
-  const response = await fetch('/rx', {
+  const response = await fetch('/api', {
     method: "POST",
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
