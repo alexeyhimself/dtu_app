@@ -9,6 +9,18 @@ for (let i = 0; i < current_db_version; i++) {
   ex_db_names_to_cleanup.push(db_name_prefix + i);
 }
 
+function DB_get_asked_from_user_filters_and_mute(user_filters, mute) {
+  let mute_list = ['datetime_to', 'datetime_from'];
+  if (mute)
+    mute_list = mute_list.concat(mute);
+
+  let asked = {...user_filters};
+  for (let i in mute_list)
+    delete asked[mute_list[i]];
+
+  return asked;
+}
+
 class DB {
   constructor() {
     this.db_m = JSON.parse(JSON.stringify(emty_db_schema)); // https://www.digitalocean.com/community/tutorials/copying-objects-in-javascript#deep-copying-objects
@@ -52,14 +64,7 @@ class DB {
   }
 
   select(user_filters, mute) {
-    let mute_list = ['datetime_to', 'datetime_from'];
-    if (mute)
-      mute_list = mute_list.concat(mute);
-
-    let asked = {...user_filters};
-    for (let i in mute_list)
-      delete asked[mute_list[i]];
-
+    let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute)
     const records = this.get_records_by_engine_type(asked.ctag, asked.topic)
     let found_reports = [];
     for (let i in records) {
@@ -252,4 +257,20 @@ function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filter
   const in_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, in_out.in);
   const out_of_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, in_out.out);
   return {'all': all, 'in': in_filter, 'out': out_of_filter};
+}
+
+async function CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute) {
+  console.log(user_filters)
+  let asked = DB_get_asked_from_user_filters_and_mute(user_filters, ['ugid']);
+  for (let key in asked) {
+    if (typeof(asked[key]) == 'object')
+      asked[key] = JSON.stringify(asked[key]);
+  }
+  var url = new URL('http://localhost/api/read_distinct/' + something_distinct);
+  url.search = new URLSearchParams(asked).toString();
+  console.log(url);
+  let response = await fetch(url)
+    .then(response => response.json())
+  console.log(response);
+  return response;
 }

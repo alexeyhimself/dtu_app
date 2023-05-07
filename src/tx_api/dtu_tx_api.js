@@ -5,6 +5,7 @@ function TX_API_sum_values_of_dict(obj) { // https://stackoverflow.com/questions
 */
 
 const STEP_SIZE = 7;
+const USE_CLICKHOUSE_DB = !['dotheyuse.com', ''].includes(window.location.hostname);
 
 function TX_API_get_sum_of_list_values(list_sorted_by_value_desc) {
   let sum = 0;
@@ -110,6 +111,9 @@ function TX_API_add_uids_to_kwargs(kwargs, user_filters) {
 function TX_API_add_topics_to_kwargs(kwargs, user_filters) {
   let mute_list = {...user_filters}
   delete mute_list['ctag']; // to mute everything but ctag
+
+  if (USE_CLICKHOUSE_DB)
+    CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'topic', Object.keys(mute_list));
 
   const topics_match_ctag_dict = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'topic', Object.keys(mute_list));
   const all_topics_match_ctag_dict = topics_match_ctag_dict.all;
