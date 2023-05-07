@@ -278,14 +278,10 @@
     
     <script src="src/customer/dtu_sdk_js/dtu_sdk.js?v=10"></script>
     <script type="text/javascript">
-      let config = {
+      const dtu = dotheyuse({
         'ctag': 'DEMO MVP',
         'topic': 'your real usage now',
-      }
-      if ("localhost" == window.location.hostname) 
-        config.callback = DTU_RX_API_submint_report;
-
-      const dtu = dotheyuse(config);
+      });
     </script>
     <script src="src/customer/dtu_client_emulator.js?v=10"></script>
     <script type="text/javascript">
