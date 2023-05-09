@@ -1,7 +1,7 @@
 NEW_REMOTE_FILE_NAME=dtu_app.html
 NEW_LOCAL_FILE_NAME=dtu_app_local.html
 
-cp app.html $NEW_REMOTE_FILE_NAME
+cp index.html $NEW_REMOTE_FILE_NAME
 
 # delete google analytics
 sed -i '' '/googletagmanager/,/<\/script>/d' $NEW_REMOTE_FILE_NAME
@@ -16,7 +16,7 @@ sed -i '' '/dtu_client_emulator/d' $NEW_REMOTE_FILE_NAME
 sed -i '' '/customer\/dtu_sdk_js/,/<\/script>/d' $NEW_REMOTE_FILE_NAME
 
 # remove data-dtu attributes
-list_of_dtu_attributes=$(cat $NEW_REMOTE_FILE_NAME | gawk 'match($0, /(data-dtu="[a-z0-9A-Z \-\.\:]+")/, arr) { printf "%s\n", arr[0] }')
+list_of_dtu_attributes=$(cat $NEW_REMOTE_FILE_NAME | gawk 'match($0, /(data-dtu="[a-z0-9A-Z \-\.:]+")/, arr) { printf "%s\n", arr[0] }')
 
 IFS='
 '
