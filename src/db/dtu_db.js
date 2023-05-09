@@ -254,7 +254,7 @@ function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filter
 
   if (USE_CLICKHOUSE_DB) {
     const filtered_something = CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute);
-    console.log(3, filtered_something)
+    //console.log(3, filtered_something)
     const all = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
     const in_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
     const out_of_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
@@ -276,12 +276,16 @@ function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filter
 function CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute) {
   //console.log(user_filters)
   if (!mute)
-    mute = ['uids', 'uids_not'];
+    mute = ['uids', 'uids_not']
   else
     mute = mute.concat(['uids', 'uids_not']);
   let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute);
   for (let key in asked) {
-    if (typeof(asked[key]) == 'object')
+    if (key == 'element_path') {
+      asked['element_path_string'] = (asked[key]).join(',');
+      delete asked['element_path'];
+    }
+    else if (typeof(asked[key]) == 'object')
       asked[key] = JSON.stringify(asked[key]);
   }
   var url = new URL('http://localhost/api/read_distinct/' + something_distinct);
