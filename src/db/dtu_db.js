@@ -1,3 +1,5 @@
+const USE_CLICKHOUSE_DB = !['dotheyuse.com', ''].includes(window.location.hostname);
+
 const emty_db_schema = {'table_reports': []};
 const current_db_version = 8;
 const db_name_prefix = 'dtu_db';
@@ -250,27 +252,44 @@ function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filter
   // AND ...
   // AND something.keyN = something.valueN
 
-  const filtered_something = dtu_db.select(user_filters, mute);
-  const in_out = DB_SELECT_EMULATION_select_reports_WHERE_dates_IN_AND_OUT_user_filters(filtered_something, user_filters);
+  if (USE_CLICKHOUSE_DB) {
+    const filtered_something = CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute);
+    console.log(3, filtered_something)
+    const all = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
+    const in_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
+    const out_of_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
+    //console.log(something_distinct, filtered_something, all)
+    return {'all': all, 'in': in_filter, 'out': out_of_filter};
+  }
+  else {
+    const filtered_something = dtu_db.select(user_filters, mute);
+    const in_out = DB_SELECT_EMULATION_select_reports_WHERE_dates_IN_AND_OUT_user_filters(filtered_something, user_filters);
 
-  const all = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
-  const in_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, in_out.in);
-  const out_of_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, in_out.out);
-  return {'all': all, 'in': in_filter, 'out': out_of_filter};
+    const all = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, filtered_something);
+    const in_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, in_out.in);
+    const out_of_filter = DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct, in_out.out);
+
+    return {'all': all, 'in': in_filter, 'out': out_of_filter};
+  }
 }
 
-async function CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute) {
-  console.log(user_filters)
-  let asked = DB_get_asked_from_user_filters_and_mute(user_filters, ['ugid']);
+function CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute) {
+  //console.log(user_filters)
+  if (!mute)
+    mute = ['uids', 'uids_not']
+  else
+    mute = mute.concat(['uids', 'uids_not']);
+  let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute);
   for (let key in asked) {
     if (typeof(asked[key]) == 'object')
       asked[key] = JSON.stringify(asked[key]);
   }
   var url = new URL('http://localhost/api/read_distinct/' + something_distinct);
   url.search = new URLSearchParams(asked).toString();
-  console.log(url);
-  let response = await fetch(url)
-    .then(response => response.json())
-  console.log(response);
-  return response;
+
+  var request = new XMLHttpRequest(); // https://stackoverflow.com/questions/14220321/how-do-i-return-the-response-from-an-asynchronous-call
+  request.open('GET', url, false);  // `false` makes the request synchronous
+  request.send();
+
+  return JSON.parse(request.responseText);
 }
