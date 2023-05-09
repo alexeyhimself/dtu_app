@@ -99,7 +99,8 @@ function ANALYTICS_PORTAL_SDK_collect_user_filters_on_the_page() {
 }
 
 function ANALYTICS_PORTAL_SDK_init_uids_listeners() {
-  const ids = ['txt:uids', 'txt:uids_not'];
+  //const ids = ['txt:uids', 'txt:uids_not'];
+  const ids = ['txt:uids'];
   for (let i in ids) {
     const uids_element = document.getElementById(ids[i]);
     uids_element.addEventListener("change", function(e) {
