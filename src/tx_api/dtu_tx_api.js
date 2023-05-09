@@ -329,7 +329,6 @@ const TX_API_arrays_are_equal = (a, b) => // https://www.freecodecamp.org/news/h
   a.length === b.length && a.every((element, index) => element === b[index]);
 
 function TX_API_get_dates_from_to(user_filters, kwargs) {
-  const timedelta_ms = user_filters['timedelta_ms'];
   const reports_match_user_filters__in_length = kwargs['reports_match_user_filters__in_length'];
   
   const datetime_to = user_filters['datetime_to'];
