@@ -1,7 +1,7 @@
 const USE_CLICKHOUSE_DB = !['dotheyuse.com', ''].includes(window.location.hostname);
 
 const emty_db_schema = {'table_reports': []};
-const current_db_version = 8;
+const current_db_version = 9;
 const db_name_prefix = 'dtu_db';
 const db_name = db_name_prefix + current_db_version;
 

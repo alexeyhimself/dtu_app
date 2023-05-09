@@ -11,6 +11,8 @@ function DB_INSERT_enrich_report(r) {
     r.element_path = ['', r.element];
   if (r.element_path[0] !== '')
     r.element_path.unshift(''); // add to the beginning as "all" elements for filter
+
+  r.element_path_string = JSON.stringify(r.element_path);
 }
 
 function RX_API_save_to_db(r) {
