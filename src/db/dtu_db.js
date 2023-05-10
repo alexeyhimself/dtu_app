@@ -1,4 +1,4 @@
-const USE_CLICKHOUSE_DB = !['dotheyuse.com', ''].includes(window.location.hostname);
+const USE_CLICKHOUSE_DB = !['dotheyuse.com', '', 'localhost--'].includes(window.location.hostname);
 
 const emty_db_schema = {'table_reports': []};
 const current_db_version = 9;
@@ -12,7 +12,7 @@ for (let i = 0; i < current_db_version; i++) {
 }
 
 function DB_get_asked_from_user_filters_and_mute(user_filters, mute) {
-  let mute_list = ['datetime_to', 'datetime_from'];
+  let mute_list = [];
   if (mute)
     mute_list = mute_list.concat(mute);
 
@@ -66,7 +66,9 @@ class DB {
   }
 
   select(user_filters, mute) {
-    let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute)
+    if (!mute)
+      mute = []
+    let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute.concat(['datetime_to', 'datetime_from']))
     const records = this.get_records_by_engine_type(asked.ctag, asked.topic)
     let found_reports = [];
     for (let i in records) {

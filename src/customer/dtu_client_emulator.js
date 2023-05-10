@@ -177,4 +177,5 @@ function CLIENT_SDK_EMULATOR_send_to_telemetry_api(report) {
   //console.log(report)
 	//jr = JSON.stringify(report);  // till no real networking - no stringify to save CPU time
 	DTU_RX_API_submint_report_endpoint(report); // send emulation
+  //DTU_RX_API_submint_report(report); // ClickHouse RX API
 }
