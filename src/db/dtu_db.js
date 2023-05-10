@@ -279,10 +279,6 @@ function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filter
 
 function CLICKHOUSE_DB_SELECT_something_WHERE_user_filers_AND_NOT_mute(user_filters, mute) {
   //console.log(user_filters)
-  if (!mute)
-    mute = ['uids', 'uids_not']
-  else
-    mute = mute.concat(['uids', 'uids_not']);
   let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute);
   for (let key in asked) {
     if (key == 'element_path') {
@@ -304,10 +300,6 @@ function CLICKHOUSE_DB_SELECT_something_WHERE_user_filers_AND_NOT_mute(user_filt
 
 function CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute) {
   //console.log(user_filters)
-  if (!mute)
-    mute = ['uids', 'uids_not']
-  else
-    mute = mute.concat(['uids', 'uids_not']);
   let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute);
   for (let key in asked) {
     if (key == 'element_path') {
