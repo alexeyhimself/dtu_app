@@ -701,11 +701,28 @@ function ANALYTICS_PORTAL_SDK_refresh_elements_page_data_according_to_user_filte
   });
 }
 
+function ANALYTICS_PORTAL_SDK_display_screen(display_screen_id) {
+  const screens = ['loading', 'app_content', 'instructions'];
+  for (let i in screens) {
+    let screen = screens[i];
+    if (display_screen_id == screen)
+      document.getElementById(screen).style.display = 'block';
+    else
+      document.getElementById(screen).style.display = 'none';
+  }
+}
+
 function ANALYTICS_PORTAL_SDK_refresh_elements_page_data_according_to_user_filters_setup() {
   let user_filters = ANALYTICS_PORTAL_SDK_collect_user_filters_on_the_page();
   let kwargs = TX_API_process_user_filters_request(user_filters);
 
-  //console.log(user_filters)
+  if (kwargs.topics_match_ctag.length == 0) {
+    ANALYTICS_PORTAL_SDK_display_screen('instructions');
+    return;
+  }  
+  ANALYTICS_PORTAL_SDK_display_screen('app_content');
+
+  //console.log(kwargs)
   //console.log(kwargs.elements_hierarchy)
 
   ANALYTICS_PORTAL_SDK_draw_elements_hierarchy(kwargs);

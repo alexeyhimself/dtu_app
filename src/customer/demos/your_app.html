@@ -55,21 +55,23 @@
         <button class="btn btn-primary" data-dtu="some button">button</button>
       </div>
 
-      <div class="col helping-block">
+      <div class="helping-block">
         <p>Full list of currently supported by default elements and their event types: <a href="https://alexeyhimself.github.io/dtu_sdk_js/dtu_sdk_story_book.html" target="_blank" data-dtu="JS SDK story book link">JavaScript SDK Story Book</a>.</p>
         <p>If you need other elements that are not supported yet, you can make your code pull request (or submit a bug or feature request feature) into <a href="https://github.com/alexeyhimself/dtu_sdk_js" target="_blank" data-dtu="JS SDK repository link">JavaScript SDK public repository</a>.</p>
-        <p>If you want to cleanup all your generated stats to start from scratch click this button:</p>
-        <button onclick="dtu_db.cleanup();" class="btn btn-danger btn-sm">Cleanup my stats</button>
       </div>
     </div>
 
     <script src="https://dotheyuse.com/src/dtu_app/src/db/dtu_db.js"></script>
     <script src="https://dotheyuse.com/src/dtu_app/src/rx_api/dtu_rx_api.js"></script>
 
+    <!-- JS SDK hosted by us -->
     <script src="https://dotheyuse.com/src/dtu_app/src/customer/dtu_sdk_js/dtu_sdk.js"></script>
+    <!-- JS SDK hosted by your container -->
+    <!--script src="/src/customer/dtu_sdk_js/dtu_sdk.js"></script-->
     <script type="text/javascript">
       const dtu = dotheyuse({
         'ctag': 'DEMO MVP',
+        'topic': 'My sample app'
       });
     </script>
   </body>

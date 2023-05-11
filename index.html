@@ -45,23 +45,20 @@
 	<body>
     <nav class="navbar navbar-expand-lg bg-light" data-dtu="Navbar">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../../index.html" data-dtu>Do They Use</a>
+        <a class="navbar-brand" href="https://dotheyuse.com" data-dtu>Do They Use</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-dtu="Menu">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav margin-left-6">
             <li class="nav-item">
-              <a style="background: red; color: snow; padding: 10px 7px 7px 7px; margin-right: 5px; border-radiu2s: 0px 0px 10px 10px;" class="nav-link" href="https://forms.gle/8srFoa9AvJ6sY5Nm6" target="_blank" rel="nofollow" data-dtu>Notify me on app launch</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link active" href="index.html" data-dtu>Analytics app</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="how-this-works">
               <a class="nav-link" href="how-this-works.html" data-dtu>How this demo works</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="how-to-use.html" data-dtu>How to setup for your app</a>
+              <a class="nav-link" href="documentation.html" data-dtu>Documentation</a>
             </li>
           </ul>
         </div>
@@ -261,6 +258,21 @@
       <p>Please wait a few seconds.<br>We are getting ready your demo account...</p>
     </div>
 
+    <div id="instructions">
+      <div class="container-fluid container-padding">
+        <h3>👋 Hey!</h3>
+        <p>
+          There are no charts here, because database responded with "no any data yet".<br>
+          You can send data here with various different ways (all described in <a href="/how-to-use.html" target="_blank">docs</a>, always available for you in the top-right corner), but we recommend you to start with <b>the simplest way</b>:
+          <ol>
+            <li>Open <a href="/src/customer/demos/your_app.html" target="_blank">this already preconfigured sample web-app</a> in a new tab;</li>
+            <li>Interact with the web-elements on that sample web-app;</li>
+            <li>Return here and refresh this page.</li>
+          </ol>
+        </p>
+      </div>
+    </div>
+
     <script src="src/web/account/js/md5/md5.min.js"></script> <!-- https://github.com/placemarker/jQuery-MD5 -->
     <script src="src/web/account/js/d3/d3.v7.min.js"></script>
     <script src="src/web/account/js/d3/d3-sankey.min.js"></script>
@@ -282,6 +294,9 @@
         'ctag': 'DEMO MVP',
         'topic': 'your real usage now',
       });
+
+      if (['', 'dotheyuse.com'].includes(window.location.hostname))
+        document.getElementById('how-this-works').style.display = 'unset';
     </script>
     <script src="src/customer/dtu_client_emulator.js?v=10"></script>
     <script type="text/javascript">

@@ -149,16 +149,11 @@ function sleep (time) {
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!['', 'localhost'].includes(window.location.hostname)) {
-    let app_content = document.getElementById('app_content'); 
-    app_content.style.display = 'none';
-    let loading_content = document.getElementById('loading');
-    loading_content.style.display = 'block';
+    ANALYTICS_PORTAL_SDK_display_screen('loading');
 
     sleep(500).then(() => {
       generate_fake_data();
-      
-      app_content.style.display = 'block';
-      loading_content.style.display = 'none';
+      ANALYTICS_PORTAL_SDK_display_screen('app_content');
 
       if (!window.localStorage.getItem('topic'))
         document.getElementById('drpd:topic').value = 'auto-generated (lite)';
