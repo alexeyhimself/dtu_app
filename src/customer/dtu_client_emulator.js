@@ -148,7 +148,7 @@ function sleep (time) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!['1', 'localhost'].includes(window.location.hostname)) {
+  if (!['', 'localhost'].includes(window.location.hostname)) {
     let app_content = document.getElementById('app_content'); 
     app_content.style.display = 'none';
     let loading_content = document.getElementById('loading');
