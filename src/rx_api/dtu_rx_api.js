@@ -21,7 +21,7 @@ function RX_API_save_to_db(r) {
   DB_INSERT_report(report);
 }
 
-function DTU_RX_API_submint_report_endpoint(report) {
+function DTU_RX_API_submint_report_simulation(report, api_url) {
   RX_API_save_to_db(report);
 }
 
