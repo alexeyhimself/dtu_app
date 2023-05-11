@@ -114,7 +114,8 @@ function TX_API_add_topics_to_kwargs(kwargs, user_filters) {
   const topics_match_ctag_dict = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'topic', Object.keys(mute_list));
   const all_topics_match_ctag_dict = topics_match_ctag_dict.all;
 
-  const all_topics_match_ctag_list = Object.keys(all_topics_match_ctag_dict).concat(['auto-generated (no data)']);
+  //const all_topics_match_ctag_list = Object.keys(all_topics_match_ctag_dict).concat(['auto-generated (no data)']);
+  const all_topics_match_ctag_list = Object.keys(all_topics_match_ctag_dict);
   kwargs['topics_match_ctag'] = all_topics_match_ctag_list;
 
   let topic = user_filters.topic;

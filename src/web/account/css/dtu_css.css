@@ -113,6 +113,10 @@ body {
   display: none;
 }
 
+#instructions, #app_content {
+  display: none;
+}
+
 /* https://loading.io/css/ */
 .lds-ellipsis {
   display: inline-block;
@@ -299,3 +303,12 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
   white-space: nowrap;
 }
 */
+
+h3 {
+  margin-top: 10px;
+  font-family: 'Bebas Neue';
+  //padding: 1px 0 0 0;
+}
+#how-this-works {
+  display: none;
+}
