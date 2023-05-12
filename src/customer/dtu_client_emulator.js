@@ -148,7 +148,7 @@ function sleep (time) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!['', 'localhost'].includes(window.location.hostname)) {
+  if (!['1', 'localhost'].includes(window.location.hostname)) {
     ANALYTICS_PORTAL_SDK_display_screen('loading');
 
     sleep(500).then(() => {
