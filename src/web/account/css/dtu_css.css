@@ -312,3 +312,7 @@ h3 {
 #how-this-works {
   display: none;
 }
+
+.nav-tabs .nav-link.active {
+  background-color: snow;
+}
