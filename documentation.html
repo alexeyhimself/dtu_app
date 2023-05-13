@@ -30,7 +30,9 @@
 		<link href="src/web/docs/dtu_css.css" rel="stylesheet">
     <link href="src/web/account/css/dtu_css.css" rel="stylesheet">
 		<style type="text/css">
-
+      h3 {
+        margin-top: 30px;
+      }
 		</style>
 	</head>
 	<body>
@@ -56,87 +58,106 @@
       </div>
     </nav>
 	  <div class="row justify-content-center clip">
-    	<div class="col-lg-6 col-11  margin-bottom-7">
-    		<h3 id="cloud-based" style="margin-top: 50px">Cloud-based (we host)</h3>
+    	<div class="col-lg-6 col-11">
+        <h3>Installation of analytics app</h3>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Docker (you host)</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Cloud based (we host)</button>
+          </li>
+        </ul>
+        <div class="tab-content margin-bottom-7" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <p style="margin-top: 10px">To pull and run Docker container with DoTheyUse Product Ananlytics app use <a href="https://hub.docker.com/r/alexeyhimself/dtu" target="_blank" rel="external" data-dtu>instructions at Docker Hub</a> web page.</p>
 
-    		<p>You can't send metrics from your apps into cloud MVP right now. Current version of cloud MVP uses and shows only its own self-monitored metrics. It is made to provide you with instructions, explanations, how-to's and demonstration of the service current abilities without any setup efforts from your side.</p>
-    		<p>Go to <a href="index.html" data-dtu>Analytics app</a> to try it. It has both synthetic auto-generated (lite and heavy data) and your real current usage live data:</p>
-    		<img src="https://www.dropbox.com/s/3o4453qk3f9jakd/inside-dtu-account.png?raw=1" style="min-width: 712px; max-width: 100%; border: 1px solid gray;" class="image">
-    		
+            <a href="https://hub.docker.com/r/alexeyhimself/dtu" target="_blank" rel="external" data-dtu="docker hub image"><img src="https://www.dropbox.com/s/c1c6qhbc03297w5/dtu-docker-hub.png?raw=1" style="min-width: 712px; max-width: 100%; border: 1px solid gray;" class="image"></a>
 
-    		<h3 id="self-hosted">Self-hosted (you host)</h3>
 
-    		<p>You can see real analytics from your web app if you use self-hosted setup.</p>
-    		<p>Below are detailed instructions on how you can do it. First 2 options (<a href="#zero-coding">Zero coding demo</a> and <a href="#iframe">&lt;iframe> demo</a>) &mdash; are demos to show you how to attach analytics to sample "your_app.html". Third option (<a href="#setup-instructions">Enable analytics for your web app</a>) &mdash; is a step-by-step guide on how to make the same for your real app.</p>
+            <h3>Installation of ANALYTICS SDK into your APP</h3>
+            <ol>
+              <li>Import and init <a href="https://alexeyhimself.github.io/dtu_sdk_js" target="_blank" data-dtu>DTU JavaScript SDK</a> in your web app: put the following code right before &lt;/body> tag in your web app:<br>
+                <div class="code">
+                  <code><pre style="overflow-x: hidden!important;">&lt;!-- Use JS SDK hosted by us (default): -->
+      &lt;script src="https://dotheyuse.com/src/dtu_app/src/customer/dtu_sdk_js/dtu_sdk.js">&lt;/script>
+      &lt;!-- or use JS SDK hosted by your container: -->
+      &lt;!--script src="/src/customer/dtu_sdk_js/dtu_sdk.js">&lt;/script-->
+      &lt;script type="text/javascript">
+        const dtu = dotheyuse({
+          'ctag': 'DEMO MVP',
+          'topic': 'My sample app'
+        });
+      &lt;/script></pre></code>
+                </div>
+              </li>
+              <li>Tag with "data-dtu" attribute any (of <a href="https://alexeyhimself.github.io/dtu_sdk_js/dtu_sdk_story_book.html" target="_blank" data-dtu>DTU JS SDK supported types</a>) elements of your web app. For example, tag a hyperlink:<br>
+                <div class="code">
+                  <code style="font-size: 14px;">
+                    <pre>&lt;a href="..." data-dtu>...&lt;/a></pre>
+                  </code>
+                </div>
+                or with custom "data-dtu" attribute value:
+                <div class="code">
+                  <code style="font-size: 14px;">
+                    <pre>&lt;a href="..." data-dtu="some link">...&lt;/a></pre>
+                  </code>
+                </div>
+              </li>
+            </ol>
+          
 
-    		<h4 id="zero-coding">Zero coding demo</h4>
-    		<ol>
-    			<li>Download <a href="src/customer/demos/your_app.html" data-dtu target="_blank">your_app.html</a> (on saving choose "Webpage, HTML only" option, not "Webpage, Complete" &mdash; because the file is self-sufficient);</li>
-    			<li>Download <a href="src/customer/demos/dtu_app.html" data-dtu target="_blank">dtu_app.html</a> (the same: on saving choose "Webpage, HTML only");</li>
-    			<li>Open both files in the same web browser;</li>
-    			<li>Interact with the elements of "your_app.html" (click links, buttons, change values);</li>
-    			<li>Refresh "dtu_app.html" (or click on "5 min" link on the) page to see the stats from "your_app.html".</li>
-    		</ol>
-    		<p>This is how it works in general.</p>
+            <h3>Using analytics app</h3>
+            <ul>
+              <li>Interact with tagged element(s) in your app. For example for the "link" (anchor) element JS SDK monitors "click" interaction. For other elements it could be "change" event type. Refer to <a href="https://github.com/alexeyhimself/dtu_sdk_js/blob/main/dtu_sdk.js#L41" target="_blank">JS SDK source code</a> to find exact elements and event types.</li>
+              <li>Open "dtu_app.html" file that you downloaded in step 1 and see that your interaction is already displayed in the app. <b>Please note</b>, that "dtu_app.html" has to be in the same origin with your app (for example, if you run your app on http://localhost:8000 host-port then "dtu_app.html" must be opened somewhere in the same http://localhost:8000 host-port origin in the same web browser).</li>
+            </ul>
+        
+        
+            <h3>Furter steps</h3>
+            <ul >
+              <li>Tag more elements in your web app with "data-dtu" attributes to see them in Do They Use analytics app;</li>
+              <li>Contribute to <a href="https://github.com/alexeyhimself/dtu_sdk_js" target="_blank">JS SDK repository</a> (with code pull requests or by submitting issues and features requests) if something not implemented in JS SDK yet, not working or you found a bug;</li>
+              <li>Provide your feedback &mdash; so we could to improve this product further.</li>
+            </ul>
+          </div>
+        
+  
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <p style="margin-top: 10px">You can't send metrics from your apps into cloud MVP right now. Current version of cloud MVP uses and shows only its own self-monitored metrics. It is made to provide you with instructions, explanations, how-to's and demonstration of the service current abilities without any setup efforts from your side.</p>
+            <p>Go to <a href="index.html" data-dtu>Analytics app</a> to try it. It has both synthetic auto-generated (lite and heavy data) and your real current usage live data:</p>
+            <a href="index.html" data-dtu="dtu image"><img src="https://www.dropbox.com/s/3o4453qk3f9jakd/inside-dtu-account.png?raw=1" style="min-width: 712px; max-width: 100%; border: 1px solid gray;" class="image"></a>
+          </div>
 
-    		<h4 id="iframe">&lt;iframe> demo</h4>
-    		<p><a href="src/customer/demos/iframe_app_local.html" target="_blank">Open &lt;iframe> demo in a new tab</a>, play with it and then return back. It is completely ready to play with. We'll wait for you here.</p>
-    		<p>This is a demo page with &lt;iframe>s for "your_app.html" (on the left) and "dtu_app.html" (on the right) &mdash; so you can see everything on a single page with no need of switching between browser tabs. This is how it looks:</p>
-    		<img src="https://www.dropbox.com/s/dfut7ooh8t6e78u/iframe-demo.png?raw=1" style="min-width: 707px; max-width: 100%;" class="image">
+          <!--div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <p>You can see real analytics from your web app if you use self-hosted setup.</p>
+            <p>Below are detailed instructions on how you can do it. First 2 options (<a href="#zero-coding">Zero coding demo</a> and <a href="#iframe">&lt;iframe> demo</a>) &mdash; are demos to show you how to attach analytics to sample "your_app.html". Third option (<a href="#setup-instructions">Enable analytics for your web app</a>) &mdash; is a step-by-step guide on how to make the same for your real app.</p>
 
-    		<p>This single-page &lt;iframe> demo is available in 2 variants:</p>
-    		<ol>
-    			<li>Open <a href="src/customer/demos/iframe_app_local.html" target="_blank">iframe_app_local.html</a> and save it locally (on saving choose "Webpage, HTML only" option) into the same directory with 2 files that you've already downloaded during steps 1 and 2 of <a href="#zero-coding">"Zero coding demo"</a> instruction above. This &lt;iframe> demo file works with local copies of "your_app.html" and "dtu_app.html";</li>
-    			<li>Or alternatively, open <a href="src/customer/demos/iframe_app_remote.html" target="_blank">iframe_app_remote.html</a> and save it anywhere locally (on saving choose "Webpage, HTML only" option as well). This demo file works without local copies of "your_app.html" and "dtu_app.html" because it loads them into &lt;iframe>s from dotheyuse.com site.</li>
-    		</ol>
+            <h4 id="zero-coding">Zero coding demo</h4>
+            <ol>
+              <li>Download <a href="src/customer/demos/your_app.html" data-dtu target="_blank">your_app.html</a> (on saving choose "Webpage, HTML only" option, not "Webpage, Complete" &mdash; because the file is self-sufficient);</li>
+              <li>Download <a href="src/customer/demos/dtu_app.html" data-dtu target="_blank">dtu_app.html</a> (the same: on saving choose "Webpage, HTML only");</li>
+              <li>Open both files in the same web browser;</li>
+              <li>Interact with the elements of "your_app.html" (click links, buttons, change values);</li>
+              <li>Refresh "dtu_app.html" (or click on "5 min" link on the) page to see the stats from "your_app.html".</li>
+            </ol>
+            <p>This is how it works in general.</p>
 
-    		<p>Also these 2 &lt;iframe> demo files will work from dotheyuse.com website without any need to save them locally. You can play with them on dotheyuse.com as you've already done in the beginning. It will work.</p>
-    		
-    		<h4 id="setup-instructions">Enable Do They Use analytics for your web app</h4>
-    		<p>Below is a detailed instruction on how to do the same analytics not for "your_app.html" but for your real web app.</p>
-    		<ol>
-    			<li>If you haven't saved yet, save <a href="src/customer/demos/dtu_app.html" data-dtu target="_blank">dtu_app.html</a> single-page HTML file of the DTU analytics app to any place. When saving choose "Webpage, HTML only" option, not "Webpage, Complete" because this HTML file has absolute paths for all the imports it needs. You can place "dtu_app.html" file anywhere and it will work from any place if that place is in the same origin with your app (file:// or http://domain or https://domain) in the same browser (because it uses window.localStorage of web browser to retrieve stats from your app to the Do They Use analytics app).</li>
+            <h4 id="iframe">&lt;iframe> demo</h4>
+            <p><a href="src/customer/demos/iframe_app_local.html" target="_blank">Open &lt;iframe> demo in a new tab</a>, play with it and then return back. It is completely ready to play with. We'll wait for you here.</p>
+            <p>This is a demo page with &lt;iframe>s for "your_app.html" (on the left) and "dtu_app.html" (on the right) &mdash; so you can see everything on a single page with no need of switching between browser tabs. This is how it looks:</p>
+            <img src="https://www.dropbox.com/s/dfut7ooh8t6e78u/iframe-demo.png?raw=1" style="min-width: 707px; max-width: 100%;" class="image">
 
-    			<li>Import and init JavaScript SDK in your web app: put the following code right before &lt;/body> tag in your web app:<br>
-    				<div class="code">
-    					<code>
-<pre>&lt;script src="https://dotheyuse.com/src/db/dtu_db.js">&lt;/script>
-&lt;script src="https://dotheyuse.com/src/rx_api/dtu_rx_api.js">&lt;/script>
+            <p>This single-page &lt;iframe> demo is available in 2 variants:</p>
+            <ol>
+              <li>Open <a href="src/customer/demos/iframe_app_local.html" target="_blank">iframe_app_local.html</a> and save it locally (on saving choose "Webpage, HTML only" option) into the same directory with 2 files that you've already downloaded during steps 1 and 2 of <a href="#zero-coding">"Zero coding demo"</a> instruction above. This &lt;iframe> demo file works with local copies of "your_app.html" and "dtu_app.html";</li>
+              <li>Or alternatively, open <a href="src/customer/demos/iframe_app_remote.html" target="_blank">iframe_app_remote.html</a> and save it anywhere locally (on saving choose "Webpage, HTML only" option as well). This demo file works without local copies of "your_app.html" and "dtu_app.html" because it loads them into &lt;iframe>s from dotheyuse.com site.</li>
+            </ol>
 
-&lt;script src="https://dotheyuse.com/src/customer/dtu_sdk_js/dtu_sdk.js">&lt;/script>
-&lt;script type="text/javascript">
-  const dtu = dotheyuse({
-    'ctag': 'DEMO MVP',
-    'topic': 'real usage'
-});
-&lt;/script></pre>
-    					</code>
-    				</div>
-    			</li>
-    			<li>Tag with "data-dtu" attribute any (of <a href="https://alexeyhimself.github.io/dtu_sdk_js/dtu_sdk_story_book.html" target="_blank">DTU JS SDK supported types</a>) elements of your web app. For example, tag a hyperlink:<br>
-    				<div class="code">
-              <code style="font-size: 14px;">
-                <pre>&lt;a href="..." data-dtu>...&lt;/a></pre>
-              </code>
-            </div>
-            or with custom "data-dtu" attribute value:
-            <div class="code">
-              <code style="font-size: 14px;">
-                <pre>&lt;a href="..." data-dtu="some link">...&lt;/a></pre>
-              </code>
-            </div>
-    			</li>
-    			<li>Interact with that element. For example for the "link" (anchor) element JS SDK monitors "click" interaction. For other elements it could be "change" event type. Refer to <a href="https://github.com/alexeyhimself/dtu_sdk_js/blob/main/dtu_sdk.js#L16" target="_blank">JS SDK source code</a> to find exact elements and event types.</li>
-    			<li>Open "dtu_app.html" file that you downloaded in step 1 and see that your interaction is already displayed in the app. <b>Please note</b>, that "dtu_app.html" has to be in the same origin with your app (for example, if you run your app on http://localhost:8000 host-port then "dtu_app.html" must be opened somewhere in the same http://localhost:8000 host-port origin in the same web browser).</li>
-    		</ol>
-
-    		<h4>Furter steps</h4>
-    		<ul >
-    			<li>Tag more elements in your web app with "data-dtu" attributes to see them in Do They Use analytics app;</li>
-    			<li>Contribute to <a href="https://github.com/alexeyhimself/dtu_sdk_js" target="_blank">JS SDK repository</a> (with code pull requests or by submitting issues and features requests) if something not implemented in JS SDK yet, not working or you found a bug;</li>
-    			<li>Provide your feedback &mdash; so we could to improve this product further.</li>
-    		</ul>
-    	</div>
+            <p>Also these 2 &lt;iframe> demo files will work from dotheyuse.com website without any need to save them locally. You can play with them on dotheyuse.com as you've already done in the beginning. It will work.</p>
+          </div-->
+        </div>
+      </div>
     </div>
 
     <script src="src/db/dtu_db.js?v=10"></script>
