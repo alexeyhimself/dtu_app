@@ -1,7 +1,7 @@
 const USE_CLICKHOUSE_DB = !['dotheyuse.com', '', 'localhost--'].includes(window.location.hostname);
 
 const emty_db_schema = {'table_reports': []};
-const current_db_version = 9;
+const current_db_version = 10;
 const db_name_prefix = 'dtu_db';
 const db_name = db_name_prefix + current_db_version;
 
@@ -121,6 +121,20 @@ class DB {
           for (let i in uids_not) {
             if (uids_not.includes(String(r['uid']))) {
               matched = false;
+              break;
+            }
+          }
+          continue;
+        }
+        if (key == 'ugids') {
+          const ugids = asked[key];
+          if (ugids.length == 1 && ugids[0] == '')
+            continue;
+          matched = false;
+          let r_ugids = r['ugid'];
+          for (let i in ugids) {
+            if (r_ugids.includes(ugids[i])) {
+              matched = true;
               break;
             }
           }

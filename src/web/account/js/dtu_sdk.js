@@ -86,10 +86,10 @@ function ANALYTICS_PORTAL_SDK_collect_user_filters_on_the_page() {
     let uids_list = ANALYTICS_PORTAL_SDK_split_everything_by_any_n_comma_semicolon_and_space(uids_element.value);
     user_filters["uids"] = uids_list;
   }
-  const uids_not_element = document.getElementById("txt:uids_not");
-  if (uids_not_element) {
-    let uids_not_list = ANALYTICS_PORTAL_SDK_split_everything_by_any_n_comma_semicolon_and_space(uids_not_element.value);
-    user_filters["uids_not"] = uids_not_list;
+  const ugids_element = document.getElementById("txt:ugids");
+  if (ugids_element) {
+    let ugids_list = ANALYTICS_PORTAL_SDK_split_everything_by_any_n_comma_semicolon_and_space(ugids_element.value);
+    user_filters["ugids"] = ugids_list;
   }
 
   //console.log(user_filters)
@@ -97,8 +97,7 @@ function ANALYTICS_PORTAL_SDK_collect_user_filters_on_the_page() {
 }
 
 function ANALYTICS_PORTAL_SDK_init_uids_listeners() {
-  //const ids = ['txt:uids', 'txt:uids_not'];
-  const ids = ['txt:uids'];
+  const ids = ['txt:uids', 'txt:ugids'];
   for (let i in ids) {
     const uids_element = document.getElementById(ids[i]);
     uids_element.addEventListener("change", function(e) {
@@ -345,10 +344,11 @@ function ANALYTICS_PORTAL_SDK_draw_dropdown_options(element_id, options, selecte
   const drpd_element = document.getElementById(element_id);
   drpd_element.innerHTML = html;
 
+  const element_ids_to_show_anyway = ['drpd:element', 'drpd:url_path', 'drpd:topic']
   //if (options.length <= 1 && element_id != 'drpd:element')
   if (options.length < 1 && element_id == 'drpd:element')
     drpd_element.parentElement.style.display = 'none';
-  else if (options.length <= 1 && element_id != 'drpd:element' && element_id != 'drpd:url_path')
+  else if (options.length <= 1 && !element_ids_to_show_anyway.includes(element_id))
     drpd_element.parentElement.style.display = 'none';
   else
     drpd_element.parentElement.style.display = 'unset';
