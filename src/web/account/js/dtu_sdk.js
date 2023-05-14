@@ -1,5 +1,3 @@
-const ctag = "DEMO MVP"; // to be given somehow via session ID mapping in DB, not in request
-
 function ANALYTICS_PORTAL_SDK_init_time_shortcut_listeners() {
   const elements_to_track = document.querySelectorAll('.time-shortcut');
   for (let i = 0; i < elements_to_track.length; i++) {
@@ -48,7 +46,7 @@ function ANALYTICS_PORTAL_SDK_collect_user_filters_on_the_page() {
   else
     topic_element.value = topic;
 
-  let user_filters = {"ctag": ctag, "topic": topic};
+  let user_filters = {"topic": topic};
 
   const timedelta_element = document.getElementById('timedelta_ms');
   const timedelta_ms = timedelta_element.getAttribute('timedelta_ms');

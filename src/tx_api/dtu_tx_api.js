@@ -79,6 +79,11 @@ function TX_API_remove_anys(user_filters) { // if 'any' then this has no meaning
   return user_filters;
 }
 
+function TX_API_add_ctag(user_filters) { // somehow via session ID associated with the acc
+  user_filters['ctag'] = "DEMO MVP";
+  return user_filters;
+}
+
 function TX_API_add_uids_to_kwargs(kwargs, user_filters) {
   const uids_dict_with_mute = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'uid', ['uids', 'uids_not']);
   const uids_dict_no_mute = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'uid');
@@ -307,6 +312,7 @@ function TX_API_process_user_filters_request(user_filters) {
   let kwargs = {};
   //console.log(user_filters)
   user_filters = TX_API_remove_anys(user_filters);
+  user_filters = TX_API_add_ctag(user_filters);
 
   kwargs = TX_API_add_topics_to_kwargs(kwargs, user_filters);
   if (kwargs['current_topic']) user_filters.topic = kwargs['current_topic'];
