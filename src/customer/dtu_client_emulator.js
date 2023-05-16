@@ -60,14 +60,13 @@ const topics = [
   'auto-generated (heavy)'
 ];
 
-function EMULATOR_make_report(topic, random_time_unit, element, uid, ugid) {
+function EMULATOR_make_report(topic, random_time_unit, element, uid, ugids) {
   let event = SUPPORTED_INPUT_TYPES_AND_EVENTS[element.type][0];
   let r = dtu.process_element_event(element, event);
   dtu.make_report(r)
   dtu.report.topic = topic;
   dtu.report.uid = uid;
-  if (ugid != null)
-    dtu.report.ugid = ugid;
+  dtu.report.ugids = ugids;
   const random_time_frame = 15;
   dtu.report.date_time = EMULATOR_get_random_date(random_time_frame, random_time_unit);
   return dtu.report;
@@ -79,12 +78,8 @@ const names_w = ['daisy', 'deborah', 'isabel', 'stella', 'debra', 'beverly', 've
 const names = [].concat(names_m).concat(names_w);
 
 const user_groups = [
-  null, 
-  [], 
   ['Visitor'], 
   ['Free trial'], 
-  ['Free trial', 'Owner'],
-  ['Free trial', 'User'],
   ['Paid', 'Manager', 'Admin'],
   ['Paid', 'Manager', 'Owner'],
   ['Paid', 'Manager', 'User'],
@@ -93,8 +88,8 @@ const user_groups = [
   ['Paid'],
   ['Paid', 'Manager', 'Disabled'],
   ['Paid', 'Manager', 'Suspended'],
-  ['Free trial', 'Manager', 'Owner', 'Suspended'],
 ];
+
 
 function generate_fake_data() {
   // sort with random within a list because elements_to_listen_to go as in the page 
@@ -113,12 +108,17 @@ function generate_fake_data() {
   const list_of_uids = [];
   for (let i = 0; i < number_of_uids; i++) {
     let uid = base_uid + uids_step * i;
-    if (i % 7 == 0) // a few md5 hashes as IDs
-      uid = md5(uid);
-    else if (i % 2 == 0) // a few emails as IDs
+    //if (i % 700 == 0) // a few md5 hashes as IDs
+    //  uid = md5(uid);
+    if (i % 2 == 0) // a few emails as IDs
       uid = EMULATOR_get_random_item_from_list(names) + '@example.com';
     list_of_uids.push(uid);
   }
+
+  let user_roles = {}
+  for (let i in list_of_uids)
+    user_roles[list_of_uids[i]] = EMULATOR_get_random_item_from_list(user_groups);
+
   const linear_list_of_uid_ids = make_linear_distribution(list_of_uids.length);
 
   for (let i in topics) {
@@ -135,8 +135,8 @@ function generate_fake_data() {
       const element = list_of_elements[element_id];
       const uid_id = EMULATOR_get_random_item_from_list(linear_list_of_uid_ids);
       const uid = list_of_uids[uid_id];
-      const ugid = EMULATOR_get_random_item_from_list(user_groups);
-      const c = EMULATOR_make_report(topic, random_time_unit, element, uid, ugid);
+      const ugids = user_roles[uid];
+      const c = EMULATOR_make_report(topic, random_time_unit, element, uid, ugids);
       t = c.date_time;
       CLIENT_SDK_EMULATOR_send_to_telemetry_api(c);
     }
@@ -148,7 +148,7 @@ function sleep (time) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!['', 'localhost'].includes(window.location.hostname)) {
+  if (!['1', 'localhost'].includes(window.location.hostname)) {
     ANALYTICS_PORTAL_SDK_display_screen('loading');
 
     sleep(500).then(() => {

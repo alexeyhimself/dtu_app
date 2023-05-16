@@ -416,27 +416,25 @@ function ANALYTICS_PORTAL_SDK_init_uids_interactions_table(table_id, data_type) 
         icon = '🟥 ';
       }
 
-      let td_interactions = row.children[2];
-      // background: linear-gradient(to right, gold 20%, gold 50%, skyblue 51%, skyblue 100%);
-      //console.log(data)
-      //td_interactions.setAttribute('style', 'background-size: ' + data[3] + '% 100%');
-      let data_3 = data[3];
-      data[3] = '🟨 ' + data[3];
-      data[3] += ' compared to total number of interactions'
+      let td_interactions = row.children[3];
       let data_4 = data[4];
-      data[4] = icon + data[4];
-      data[4] += ' compared to UID with the largest number of interactions'
+      data[4] = '🟨 ' + data[4];
+      data[4] += ' compared to total number of interactions'
+      let data_5 = data[5];
+      data[5] = icon + data[5];
+      data[5] += ' compared to UID with the largest number of interactions'
     
-      td_interactions.setAttribute('style', 'background: linear-gradient(to right, gold 0%, gold ' + data_3 + ', ' + color + ' '+ data_3 + ', ' + color + ' ' + data_4 + ', transparent ' + data_4 + ', transparent 100%)');
+      td_interactions.setAttribute('style', 'background: linear-gradient(to right, gold 0%, gold ' + data_4 + ', ' + color + ' '+ data_4 + ', ' + color + ' ' + data_5 + ', transparent ' + data_5 + ', transparent 100%)');
       td_interactions.classList.add('percent');
     },
     "columnDefs": [
-      {"visible": true, "targets": [0, 4]},
+      {"visible": true, "targets": [0, 5]},
     ],
-    "order": [[2, "desc"]],
+    "order": [[3, "desc"]],
     "columns": [
         { responsivePriority: 0, "orderable": false },
-        { responsivePriority: 1, width: 100 },
+        { responsivePriority: 1, width: 10 },
+        { responsivePriority: 3, width: 10 },
         { responsivePriority: 2 },
         { responsivePriority: undefined, "className": "none" },
         { responsivePriority: undefined, "className": "none" },
@@ -547,19 +545,25 @@ function ANALYTICS_PORTAL_SDK_toggle_table_display(table_id) {
 
 function ANALYTICS_PORTAL_SDK_refresh_uids_interactions_table(kwargs, data_type) {
   const uids = kwargs['uids__' + data_type];
+  const ugids = kwargs['ugids__' + data_type];
+
   let rows = [];
   const max_number_of_calls = Object.values(uids).sort(function(a, b){return b - a})[0];
   const total_number_of_calls = kwargs['reports_match_user_filters__' + data_type + '_length'];
 
   for (let uid in uids) {
-    let number_of_calls = uids[uid];
-    rows.push([
-      '', // icon
-      uid, 
-      number_of_calls, 
-      Math.floor(number_of_calls * 100 / total_number_of_calls) + '%',
-      Math.floor(number_of_calls * 100 / max_number_of_calls) + '%',
-    ]);
+    let ugids_for_uid = ugids[uid].ugids;
+    for (let ugid in ugids_for_uid) {
+      let number_of_calls = ugids_for_uid[ugid];
+      rows.push([
+        '', // icon
+        uid,
+        ugid,
+        number_of_calls, 
+        Math.floor(number_of_calls * 100 / total_number_of_calls) + '%',
+        Math.floor(number_of_calls * 100 / max_number_of_calls) + '%',
+      ]);
+    }
   }
 
   const element_id_to_hide = 'uids__' + data_type;
@@ -578,9 +582,6 @@ function ANALYTICS_PORTAL_SDK_refresh_uids_interactions_table(kwargs, data_type)
 
   const table_id = 'uids_interactions_table__' + data_type;
   let table = ANALYTICS_PORTAL_SDK_get_datatable(table_id, data_type);
-
-  //if (Object.keys(uids).length === 0)
-  //  return;
 
   table.clear(); // https://stackoverflow.com/questions/27778389/how-to-manually-update-datatables-table-with-new-json-data
   table.rows.add(rows);
@@ -655,7 +656,7 @@ function ANALYTICS_PORTAL_SDK_refresh_elements_interactions_table(kwargs, data_t
   table.clear(); // https://stackoverflow.com/questions/27778389/how-to-manually-update-datatables-table-with-new-json-data
   table.rows.add(new_rows);
   table.columns.adjust().draw(); // doesn't work adjust https://datatables.net/reference/api/columns.adjust() so recalc width:
-  $('#uids_interactions_table__' + data_type).css('width', '100%');
+  $('#elements_interactions_table__' + data_type).css('width', '100%');
 
   ANALYTICS_PORTAL_SDK_expand_collapse_datatable(table_id, new_rows.length);
   /*

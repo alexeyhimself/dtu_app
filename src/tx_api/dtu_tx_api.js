@@ -85,9 +85,8 @@ function TX_API_add_ctag(user_filters) { // somehow via session ID associated wi
 }
 
 function TX_API_add_uids_to_kwargs(kwargs, user_filters) {
-  const uids_dict_with_mute = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'uid', ['uids', 'uids_not']);
+  const uids_dict_with_mute = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'uid', ['uids', 'ugids']);
   const uids_dict_no_mute = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'uid');
-  //const uids_dict_no_mute = DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, 'uid', ['element', 'element_type']);
   const uids_dict_no_mute__in = uids_dict_no_mute.in;
 
   let new_uids_dict_no_mute__in = {};
@@ -105,8 +104,10 @@ function TX_API_add_uids_to_kwargs(kwargs, user_filters) {
     new_uids_dict_no_mute__out[uid] = uids_dict_no_mute__out[uid].count;
 
   kwargs['uids__in'] = new_uids_dict_no_mute__in;
+  kwargs['ugids__in'] = uids_dict_no_mute__in;
   kwargs['uids__in_length'] = Object.keys(uids_dict_no_mute.in).length;
   kwargs['uids__out'] = new_uids_dict_no_mute__out;
+  kwargs['ugids__out'] = uids_dict_no_mute__out;
   kwargs['uids__all_length'] = Object.keys(uids_dict_with_mute.all).length;
   return kwargs;
 }

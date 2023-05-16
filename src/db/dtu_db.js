@@ -128,12 +128,13 @@ class DB {
         }
         if (key == 'ugids') {
           const ugids = asked[key];
+          //debugger
           if (ugids.length == 1 && ugids[0] == '')
             continue;
           matched = false;
-          let r_ugids = r['ugid'];
-          for (let i in ugids) {
-            if (r_ugids.includes(ugids[i])) {
+          let r_ugids = r['ugids'] || [];
+          for (let i in r_ugids) {
+            if (ugids.includes(r_ugids[i])) {
               matched = true;
               break;
             }
@@ -255,11 +256,38 @@ function DB_SELECT_DISTINCT_something_distinct_FROM_somewhere(something_distinct
       item = JSON.stringify(item); // to allow filtering for arrays as strings as well https://www.freecodecamp.org/news/how-to-compare-arrays-in-javascript/
 
     item_count_in_found_items = found_items[item]
-    if (item_count_in_found_items)
+    if (item_count_in_found_items) {
+      if (something_distinct == 'uid') {
+        let ugids = String(r['ugids']);
+
+        if (found_items[item]['ugids']) {
+          if (found_items[item]['ugids'][ugids]) {
+            found_items[item]['ugids'][ugids] += 1;
+          }
+          else {
+            found_items[item]['ugids'][ugids] = 1;
+          }
+        }
+        else {
+          found_items[item] = {'count': 1, 'type': r.element_type, 'ugids': {}};
+          found_items[item]['ugids'][ugids] = 1;
+        }
+      }
+      
       found_items[item].count += 1;
-    else
-      found_items[item] = {'count': 1, 'type': r.element_type};
+    }
+    else {
+      if (something_distinct == 'uid') {
+        let ugids = String(r['ugids']);
+        found_items[item] = {'count': 1, 'type': r.element_type, 'ugids': {}};
+        found_items[item]['ugids'][ugids] = 1;
+      }
+      else {
+        found_items[item] = {'count': 1, 'type': r.element_type};
+      }
+    }
   }
+  //console.log(found_items)
   return found_items;
 }
 function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filters, something_distinct, mute) {
