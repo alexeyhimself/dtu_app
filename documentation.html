@@ -68,20 +68,27 @@
 
             <a href="https://hub.docker.com/r/alexeyhimself/dtu" target="_blank" rel="external" data-dtu="docker hub image"><img src="https://www.dropbox.com/s/c1c6qhbc03297w5/dtu-docker-hub.png?raw=1" style="min-width: 712px; max-width: 100%; border: 1px solid gray;" class="image"></a>
 
+            <h3>Using analytics app</h3>
+            <ol>
+              <li>Interact with web-elements in <a href="http://localhost/src/customer/demos/your_app.html" target="_blank" data-dtu>already preconfigured sample web-app</a> (or with tagged element(s) in your app);</li>
+              <li>Return back to the Analytics app (should be on <a href="http://localhost" target="_blank" rel="external" data-dtu>http://localhost</a>) and refresh the page &mdash; analytics for your recent actions will be displayed:</li>
+            </ol>
+
 
             <h3>Installation of ANALYTICS SDK into your APP</h3>
             <ol>
               <li>Import and init <a href="https://alexeyhimself.github.io/dtu_sdk_js" target="_blank" data-dtu>DTU JavaScript SDK</a> in your web app: put the following code right before &lt;/body> tag in your web app:<br>
                 <div class="code">
                   <code><pre style="overflow-x: hidden!important;">&lt;!-- Use JS SDK hosted by us (default): -->
-      &lt;script src="https://dotheyuse.com/src/dtu_app/src/customer/dtu_sdk_js/dtu_sdk.js">&lt;/script>
-      &lt;!-- or use JS SDK hosted by your container: -->
-      &lt;!--script src="/src/customer/dtu_sdk_js/dtu_sdk.js">&lt;/script-->
-      &lt;script type="text/javascript">
-        const dtu = dotheyuse({
-          'topic': 'My sample app'
-        });
-      &lt;/script></pre></code>
+&lt;script src="https://dotheyuse.com/src/dtu_app/src/customer/dtu_sdk_js/dtu_sdk.js">&lt;/script>
+&lt;!-- or use JS SDK hosted by your container: -->
+&lt;!--script src="/src/customer/dtu_sdk_js/dtu_sdk.js">&lt;/script-->
+
+&lt;script type="text/javascript">
+  const dtu = dotheyuse({
+    'topic': 'My sample app'
+  });
+&lt;/script></pre></code>
                 </div>
               </li>
               <li>Tag with "data-dtu" attribute any (of <a href="https://alexeyhimself.github.io/dtu_sdk_js/dtu_sdk_story_book.html" target="_blank" data-dtu>DTU JS SDK supported types</a>) elements of your web app. For example, tag a hyperlink:<br>
@@ -97,27 +104,24 @@
                   </code>
                 </div>
               </li>
-            </ol>
-          
 
-            <h3>Using analytics app</h3>
-            <ul>
-              <li>Interact with tagged element(s) in your app. For example for the "link" (anchor) element JS SDK monitors "click" interaction. For other elements it could be "change" event type. Refer to <a href="https://github.com/alexeyhimself/dtu_sdk_js/blob/main/dtu_sdk.js#L41" target="_blank">JS SDK source code</a> to find exact elements and event types.</li>
-              <li>Open "dtu_app.html" file that you downloaded in step 1 and see that your interaction is already displayed in the app. <b>Please note</b>, that "dtu_app.html" has to be in the same origin with your app (for example, if you run your app on http://localhost:8000 host-port then "dtu_app.html" must be opened somewhere in the same http://localhost:8000 host-port origin in the same web browser).</li>
-            </ul>
-        
+              <p>JavaScript SDK monitors different event types for different web-elements. Refer to <a href="https://github.com/alexeyhimself/dtu_sdk_js/blob/main/dtu_sdk.js#L41" target="_blank">DTU JS SDK source code</a> to find the exact elements and monitored event types.</p>
+            </ol>
         
             <h3>Furter steps</h3>
             <ul >
               <li>Tag more elements in your web app with "data-dtu" attributes to see them in Do They Use analytics app;</li>
               <li>Contribute to <a href="https://github.com/alexeyhimself/dtu_sdk_js" target="_blank">JS SDK repository</a> (with code pull requests or by submitting issues and features requests) if something not implemented in JS SDK yet, not working or you found a bug;</li>
-              <li>Provide your feedback &mdash; so we could to improve this product further.</li>
+              <li>In <a href="https://dotheyuse.com/contacts.html" target="_blank" data-dtu>Contacts<a> you can find various ways to find us to provide your feedback.</li>
             </ul>
           </div>
         
   
           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <p style="margin-top: 10px">You can't send metrics from your apps into cloud MVP right now. Current version of cloud MVP uses and shows only its own self-monitored metrics. It is made to provide you with instructions, explanations, how-to's and demonstration of the service current abilities without any setup efforts from your side.</p>
+            <p style="margin-top: 10px">You can't send metrics from your apps into cloud MVP right now. But you can <a href="https://forms.gle/DDfr6j6wggPHrcai6" target="_blank" rel="nofollow" data-dtu>leave your email</a> and we will contact you about possible ways to do it.</p>
+
+            <p>Current version of cloud MVP uses and shows only its own self-monitored metrics. It is made to provide you with instructions, explanations, how-to's and demonstration of the service current abilities without any setup efforts from your side.</p>
+
             <p>Go to <a href="index.html" data-dtu>Analytics app</a> to try it. It has both synthetic auto-generated (lite and heavy data) and your real current usage live data:</p>
             <a href="index.html" data-dtu="dtu image"><img src="https://www.dropbox.com/s/3o4453qk3f9jakd/inside-dtu-account.png?raw=1" style="min-width: 712px; max-width: 100%; border: 1px solid gray;" class="image"></a>
           </div>
