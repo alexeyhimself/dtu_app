@@ -563,7 +563,7 @@ function ANALYTICS_PORTAL_SDK_refresh_uids_interactions_table(kwargs, data_type)
       rows.push([
         '', // icon
         uid,
-        ugid,
+        ugid.split(',').join(',&nbsp;'),
         number_of_calls, 
         Math.floor(number_of_calls * 100 / total_number_of_calls) + '%',
         Math.floor(number_of_calls * 100 / max_number_of_calls) + '%',
