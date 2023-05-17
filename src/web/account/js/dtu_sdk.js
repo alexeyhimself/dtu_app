@@ -243,20 +243,19 @@ function ANALYTICS_PORTAL_SDK_refresh_calls_over_time_for_chart_id_(chart_id, us
     .curve(d3.curveStepAfter);
 
   // Step 5. Draw the SVG.
-    // First let's create an empty SVG.
+  // First let's create an empty SVG.
   const svg = d3.select('#' + element_id_for_linear_chart)
     .append('svg')
     .attr('width', width)
     .attr('height', height);
 
-    // Draw the x and y axes.
+  // Draw the x and y axes.
   svg.append('g').call(xAxis)
   svg.append('g').call(yAxis)
 
   svg.append('g').call(xGrid);
   svg.append('g').call(yGrid);
 
-  
   svg.append("path")
     .datum(data)
     .attr("fill", "#64a3ff")
@@ -268,7 +267,7 @@ function ANALYTICS_PORTAL_SDK_refresh_calls_over_time_for_chart_id_(chart_id, us
       .curve(d3.curveStepAfter)
     )
 
-    // Draw the line.
+  // Draw the line.
   svg.append('path')
     .datum(data)
     .attr("fill", "none")
@@ -276,7 +275,13 @@ function ANALYTICS_PORTAL_SDK_refresh_calls_over_time_for_chart_id_(chart_id, us
     .attr("stroke-width", 1)
     .attr('d', line);
 
+  ANALYTICS_PORTAL_SDK_refresh_dates_info_for_chart_id_(chart_id, data[0].date, data[data.length - 1].date);
   //ANALYTICS_PORTAL_SDK_refresh_stats_for_chart_id_(chart_id, config.aggr, config.aggr_unit, config.min, config.max, config.median);
+}
+
+function ANALYTICS_PORTAL_SDK_refresh_dates_info_for_chart_id_(chart_id, datetime_from, datetime_to) {
+  const time_range_element = document.getElementById('linear_chart_time_range');
+  time_range_element.innerHTML = '<p class="chart-name">Date-time from:</b> ' + new Date(datetime_from).toLocaleString() + '<br>Date-time to:</b> ' + new Date(datetime_to).toLocaleString() + '</p>';
 }
 
 /*
