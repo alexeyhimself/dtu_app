@@ -30,7 +30,7 @@ function ANALYTICS_PORTAL_SDK_split_everything_by_any_n_comma_semicolon_and_spac
     for (let i = 0; i < c.length; i++) {
       let sc = c[i].trim().split(';');
       for (let i = 0; i < sc.length; i++) {
-        let s = sc[i].trim().split(' ');
+        let s = sc[i].trim();//.split(' ');
         result = result.concat(s);
       }
     }
