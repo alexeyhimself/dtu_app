@@ -133,10 +133,13 @@ class DB {
             continue;
           matched = false;
           let r_ugids = r['ugids'] || [];
-          for (let i in r_ugids) {
-            if (ugids.includes(r_ugids[i])) {
-              matched = true;
+          for (let i in ugids) {
+            if (!r_ugids.includes(ugids[i])) {
+              matched = false;
               break;
+            }
+            else {
+              matched = true;
             }
           }
           continue;
