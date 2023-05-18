@@ -642,7 +642,7 @@ function TX_API_get_data_for_chart_(chart_width_px, user_filters, kwargs) {
   let displayed_time_range = agregations.displayed_time_range;
   let display_unit_and_step = TX_API_get_display_unit_and_step(displayed_time_range, chart_width_px);
 
-  console.log('prettify me')
+  //console.log('prettify me')
   // 8 hours
   let aggr;
   let aggr_unit;
@@ -660,7 +660,7 @@ function TX_API_get_data_for_chart_(chart_width_px, user_filters, kwargs) {
   if (aggr > 1)
     aggr_unit += 's';
 
-  console.log('and me')
+  //console.log('and me')
   // min, medium, max
   let min;
   let median;

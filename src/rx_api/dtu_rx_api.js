@@ -15,4 +15,4 @@ function DTU_RX_API_submint_report_simulation(report, api_url) {
   dtu_db.insert(report);
 }
 
-console.warn("make element path to lower case both for rx and tx apis")
+//console.warn("make element path to lower case both for rx and tx apis")
