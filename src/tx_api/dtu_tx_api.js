@@ -479,13 +479,13 @@ function TX_API_prepare_time_windows_agregations(chart_width_px, user_filters, k
 
   //console.log(new Date(dates.datetime_from))
   //console.log(new Date(dates.datetime_to))
-  //console.log(dates.time_range, ms_in_1_px)
+  //console.log(dates.time_range, ms_in_1_px, ms_in_1_px_with_margins, ms_in_1_px_with_margins - ms_in_1_px)
 
   return {'agregation_result': agregation_result.reverse(), 
           'displayed_time_range': dates.time_range, 
           'datetime_from': dates.datetime_from, 
           'datetime_to': dates.datetime_to, 
-          'ms_in_1_px': ms_in_1_px};
+          'ms_in_1_px': ms_in_1_px_with_margins};
 }
 
 function TX_API_get_reports_with_elements_path_match(user_filters, kwargs) {
@@ -599,6 +599,8 @@ function TX_API_get_data_for_chart_(chart_width_px, user_filters, kwargs) {
       }
     }
   }
+
+  //console.warn(stats)
 
   let zeros = 0;
   let non_zeros = 0;

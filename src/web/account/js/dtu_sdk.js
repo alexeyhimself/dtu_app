@@ -63,7 +63,8 @@ function ANALYTICS_PORTAL_SDK_collect_user_filters_on_the_page() {
   if (topic_element.hasAttribute('changed'))
     return user_filters;
 
-  const path = ['url_domain_name', 'url_path'];
+  //const path = ['url_domain_name', 'url_path'];
+  const path = ['url_path']; // temporary disabled url_domain_name
   for (let i in path) {
     let drpd_path_suffix = path[i];
     let element = document.getElementById("drpd:" + drpd_path_suffix);
