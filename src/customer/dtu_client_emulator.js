@@ -61,8 +61,8 @@ const topics = [
 ];
 
 function EMULATOR_make_report(topic, random_time_unit, element, uid, ugids) {
-  let event = SUPPORTED_INPUT_TYPES_AND_EVENTS[element.type][0];
-  let r = dtu.process_element_event(element, event);
+  let event = DEFAULT_SUPPORTED_TAGS_TYPES_EVENTS[element.tagName][element.type];
+  let r = dtu.process_element(element);
   dtu.make_report(r)
   dtu.report.topic = topic;
   dtu.report.uid = uid;
@@ -148,7 +148,7 @@ function sleep (time) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!['', 'localhost'].includes(window.location.hostname)) {
+  if (!['--', 'localhost'].includes(window.location.hostname)) {
     ANALYTICS_PORTAL_SDK_display_screen('loading');
 
     sleep(500).then(() => {
