@@ -333,7 +333,7 @@ function CLICKHOUSE_DB_SELECT_something_WHERE_user_filers_AND_NOT_mute(user_filt
     else if (typeof(asked[key]) == 'object')
       asked[key] = JSON.stringify(asked[key]);
   }
-  var url = new URL('http://localhost/api/read');
+  var url = new URL('/api/read');
   url.search = new URLSearchParams(asked).toString();
   //console.log(url)
   var request = new XMLHttpRequest(); // https://stackoverflow.com/questions/14220321/how-do-i-return-the-response-from-an-asynchronous-call
@@ -354,7 +354,7 @@ function CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(
     else if (typeof(asked[key]) == 'object')
       asked[key] = JSON.stringify(asked[key]);
   }
-  var url = new URL('http://localhost/api/read_distinct/' + something_distinct);
+  var url = new URL('/api/read_distinct/' + something_distinct);
   url.search = new URLSearchParams(asked).toString();
   //console.log(url)
   var request = new XMLHttpRequest(); // https://stackoverflow.com/questions/14220321/how-do-i-return-the-response-from-an-asynchronous-call
