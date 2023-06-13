@@ -322,6 +322,11 @@ function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filter
   }
 }
 
+const PROTOCOL = window.location.protocol;
+const HOSTNAME = window.location.hostname;
+const PORT = window.location.port || '80';
+const API_URL = PROTOCOL + HOSTNAME + ':' + PORT;
+
 function CLICKHOUSE_DB_SELECT_something_WHERE_user_filers_AND_NOT_mute(user_filters, mute) {
   //console.log(user_filters)
   let asked = DB_get_asked_from_user_filters_and_mute(user_filters, mute);
@@ -333,7 +338,7 @@ function CLICKHOUSE_DB_SELECT_something_WHERE_user_filers_AND_NOT_mute(user_filt
     else if (typeof(asked[key]) == 'object')
       asked[key] = JSON.stringify(asked[key]);
   }
-  var url = new URL('/api/read');
+  var url = new URL(API_URL + '/api/read');
   url.search = new URLSearchParams(asked).toString();
   //console.log(url)
   var request = new XMLHttpRequest(); // https://stackoverflow.com/questions/14220321/how-do-i-return-the-response-from-an-asynchronous-call
@@ -354,7 +359,7 @@ function CLICKHOUSE_DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(
     else if (typeof(asked[key]) == 'object')
       asked[key] = JSON.stringify(asked[key]);
   }
-  var url = new URL('/api/read_distinct/' + something_distinct);
+  var url = new URL(API_URL + '/api/read_distinct/' + something_distinct);
   url.search = new URLSearchParams(asked).toString();
   //console.log(url)
   var request = new XMLHttpRequest(); // https://stackoverflow.com/questions/14220321/how-do-i-return-the-response-from-an-asynchronous-call
