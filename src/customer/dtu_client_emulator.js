@@ -147,8 +147,14 @@ function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
+const LOCAL_DEBUG = '--'; // '' means false, non-'' means true
+
+const HOSTNAME_FOR_RUNNING_AS_LOCAL_FILE = '' + LOCAL_DEBUG;
+const HOSTNAME_FOR_RUNNING_AS_LOCALHOST = 'localhost' + LOCAL_DEBUG;
+const HOSTNAMES_WHERE_TO_GENERATE_FAKE_DATA = ['dotheyuse.com', HOSTNAME_FOR_RUNNING_AS_LOCAL_FILE, HOSTNAME_FOR_RUNNING_AS_LOCALHOST];
+
 document.addEventListener("DOMContentLoaded", () => {
-  if (!['--', 'localhost'].includes(window.location.hostname)) {
+  if (HOSTNAMES_WHERE_TO_GENERATE_FAKE_DATA.includes(window.location.hostname)) {
     ANALYTICS_PORTAL_SDK_display_screen('loading');
 
     sleep(500).then(() => {
