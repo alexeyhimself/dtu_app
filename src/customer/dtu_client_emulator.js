@@ -147,11 +147,14 @@ function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-const LOCAL_DEBUG = '--'; // '' means true, non-'' (default value) means false
+const EMULATOR_LOCAL_DEBUG = false; // default is false
 
-const HOSTNAME_FOR_RUNNING_AS_LOCAL_FILE = '' + LOCAL_DEBUG;
-const HOSTNAME_FOR_RUNNING_AS_LOCALHOST = 'localhost' + LOCAL_DEBUG;
-const HOSTNAMES_WHERE_TO_GENERATE_FAKE_DATA = ['dotheyuse.com', HOSTNAME_FOR_RUNNING_AS_LOCAL_FILE, HOSTNAME_FOR_RUNNING_AS_LOCALHOST];
+const EMULATOR_LOCAL_DEBUG_SUFFIX = EMULATOR_LOCAL_DEBUG ? '' : '--';
+const HOSTNAMES_WHERE_TO_GENERATE_FAKE_DATA = [
+  'dotheyuse.com', 
+  '' + EMULATOR_LOCAL_DEBUG_SUFFIX, 
+  'localhost' + EMULATOR_LOCAL_DEBUG_SUFFIX
+];
 
 document.addEventListener("DOMContentLoaded", () => {
   if (HOSTNAMES_WHERE_TO_GENERATE_FAKE_DATA.includes(window.location.hostname)) {
