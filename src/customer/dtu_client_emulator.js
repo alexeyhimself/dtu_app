@@ -147,7 +147,7 @@ function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-const LOCAL_DEBUG = '--'; // '' means false, non-'' means true
+const LOCAL_DEBUG = '--'; // '' means true, non-'' (default value) means false
 
 const HOSTNAME_FOR_RUNNING_AS_LOCAL_FILE = '' + LOCAL_DEBUG;
 const HOSTNAME_FOR_RUNNING_AS_LOCALHOST = 'localhost' + LOCAL_DEBUG;
