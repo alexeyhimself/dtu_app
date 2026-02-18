@@ -1,4 +1,4 @@
-const USE_CLICKHOUSE_DB = !['dotheyuse.com', '', 'localhost--'].includes(window.location.hostname);
+const USE_CLICKHOUSE_DB = !['alexeyhimself.github.io', '', 'localhost--'].includes(window.location.hostname);
 
 const emty_db_schema = {'table_reports': []};
 const current_db_version = 10;

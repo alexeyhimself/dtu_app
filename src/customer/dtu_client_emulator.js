@@ -151,7 +151,7 @@ const EMULATOR_LOCAL_DEBUG = false; // default is false
 
 const EMULATOR_LOCAL_DEBUG_SUFFIX = EMULATOR_LOCAL_DEBUG ? '' : '--';
 const HOSTNAMES_WHERE_TO_GENERATE_FAKE_DATA = [
-  'dotheyuse.com', 
+  'alexeyhimself.github.io', 
   '' + EMULATOR_LOCAL_DEBUG_SUFFIX, 
   'localhost' + EMULATOR_LOCAL_DEBUG_SUFFIX
 ];
