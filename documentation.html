@@ -169,7 +169,8 @@
     
     <script src="src/customer/dtu_sdk_js/dtu_sdk.js?v=11"></script>
     <script type="text/javascript">
-      dtu.set_topic('your real usage now');
+      const dtu = dotheyuse();
+      dtu.topic = 'your real usage now';
 
       if (['', 'alexeyhimself.github.io'].includes(window.location.hostname))
         document.getElementById('how-this-works').style.display = 'unset';
