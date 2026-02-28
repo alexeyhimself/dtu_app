@@ -301,6 +301,8 @@
     <script type="text/javascript">
       const dtu = dotheyuse();
       dtu.topic = 'your real usage now';
+      if (['localhost'].includes(window.location.hostname))
+        dtu.stop();
 
       if (['', 'alexeyhimself.github.io'].includes(window.location.hostname))
         document.getElementById('how-this-works').style.display = 'unset';
