@@ -6,6 +6,9 @@ cp index.html $NEW_REMOTE_FILE_NAME
 # delete google analytics
 sed -i '' '/googletagmanager/,/<\/script>/d' $NEW_REMOTE_FILE_NAME
 
+# delete tawk chat
+sed -i '' '/Start of Tawk/,/End of Tawk/d' $NEW_REMOTE_FILE_NAME
+
 # delete nav bar
 sed -i '' '/navbar-expand-lg/,/<\/nav>/d' $NEW_REMOTE_FILE_NAME
 
