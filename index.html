@@ -299,9 +299,10 @@
     
     <script src="src/customer/dtu_sdk_js/dtu_sdk.js?v=11"></script>
     <script type="text/javascript">
+      var dtu;
       if (['', 'alexeyhimself.github.io'].includes(window.location.hostname)) {
         document.getElementById('how-this-works').style.display = 'unset';
-        const dtu = dotheyuse();
+        dtu = dotheyuse();
         dtu.topic = 'your real usage now';
       }
     </script>
