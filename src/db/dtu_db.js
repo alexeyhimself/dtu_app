@@ -324,8 +324,9 @@ function DB_SELECT_DISTINCT_something_WHERE_user_filers_AND_NOT_mute(user_filter
 
 const PROTOCOL = window.location.protocol;
 const HOSTNAME = window.location.hostname;
-const PORT = window.location.port || '80';
-const API_URL = PROTOCOL + HOSTNAME + ':' + PORT;
+// const PORT = window.location.port || '80';
+// const API_URL = PROTOCOL + HOSTNAME + ':' + PORT;
+const API_URL = PROTOCOL + HOSTNAME;
 
 function CLICKHOUSE_DB_SELECT_something_WHERE_user_filers_AND_NOT_mute(user_filters, mute) {
   //console.log(user_filters)
